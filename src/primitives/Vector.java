@@ -17,6 +17,8 @@ public class Vector {
         setHead(vector.getHead());
     }
 
+    public Vector(double x,double y,double z){setHead(new Point3D());}
+
 
     public Vector add(Vector vector)
     {
