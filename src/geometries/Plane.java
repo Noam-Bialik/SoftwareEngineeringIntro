@@ -5,6 +5,7 @@ import primitives.Ray;
 import primitives.Vector;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Plane implements Geometry {
     Point3D point;
@@ -52,5 +53,22 @@ public class Plane implements Geometry {
         ArrayList<Point3D> ret = new ArrayList<Point3D>();
         ret.add(ray.getStart().addVector(tv));
         return ret;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Plane)) return false;
+        Plane plane = (Plane) o;
+        return Objects.equals(point, plane.point) &&
+                Objects.equals(vector, plane.vector);
+    }
+
+    @Override
+    public String toString() {
+        return "Plane{" +
+                "point=" + point +
+                ", vector=" + vector +
+                '}';
     }
 }

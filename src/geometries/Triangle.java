@@ -5,6 +5,7 @@ import primitives.Ray;
 import primitives.Vector;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Triangle extends Plane{
 
@@ -53,5 +54,24 @@ public class Triangle extends Plane{
         Vector N1 = V1.crossProduct(V2);
         N1.normalization();
         return N1;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Triangle)) return false;
+        Triangle triangle = (Triangle) o;
+        return Objects.equals(point1, triangle.point1) &&
+                Objects.equals(point2, triangle.point2) &&
+                Objects.equals(point3, triangle.point3);
+    }
+
+    @Override
+    public String toString() {
+        return "Triangle{" +
+                "point1=" + point1 +
+                ", point2=" + point2 +
+                ", point3=" + point3 +
+                '}';
     }
 }

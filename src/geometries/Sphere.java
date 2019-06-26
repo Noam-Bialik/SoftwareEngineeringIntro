@@ -5,6 +5,7 @@ import primitives.Ray;
 import primitives.Vector;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Sphere extends RadialGeometry {
 
@@ -50,5 +51,20 @@ public class Sphere extends RadialGeometry {
             ret.add(ray.getStart().addVector(help));
         }
         return ret;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Sphere)) return false;
+        Sphere sphere = (Sphere) o;
+        return Objects.equals(center, sphere.center);
+    }
+
+    @Override
+    public String toString() {
+        return "Sphere{" +
+                "center=" + center +
+                '}';
     }
 }

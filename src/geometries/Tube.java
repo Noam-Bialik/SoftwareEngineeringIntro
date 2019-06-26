@@ -5,6 +5,7 @@ import primitives.Ray;
 import primitives.Vector;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Tube extends RadialGeometry {
     Ray hinge;
@@ -33,7 +34,23 @@ public class Tube extends RadialGeometry {
         ret.normalization();
         return ret;
     }
-//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Tube)) return false;
+        Tube tube = (Tube) o;
+        return Objects.equals(hinge, tube.hinge);
+    }
+
+    @Override
+    public String toString() {
+        return "Tube{" +
+                "hinge=" + hinge +
+                '}';
+    }
+
+    //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     @Override
     public ArrayList<Point3D> findIntersections(Ray ray) {
         return null;
