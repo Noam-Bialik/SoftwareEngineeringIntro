@@ -1,17 +1,20 @@
 package Scene;
 
+import elements.AmbientLight;
 import elements.Camera;
 import geometries.Geometry;
 import primitives.Point3D;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Objects;
 
 public class Scene {
 
     private Color _background;
     private ArrayList<Geometry> _geometries = new ArrayList<Geometry>();
+    private AmbientLight _ambientLight;
     private Camera _camera;
     private double _screenDistance;
     private String _sceneName = "scene";
@@ -21,9 +24,36 @@ public class Scene {
         _background=new Color(0, 0, 0);
         _camera=new Camera();
         _screenDistance=100;
+        _ambientLight=new AmbientLight();
+
+    }
+    public Scene (Scene scene)
+    {
+        _background=new Color(scene._background.getRGB());
+        _ambientLight=new AmbientLight(scene._ambientLight);
+        _geometries=new ArrayList<Geometry>(scene._geometries);
+        _camera=new Camera(scene._camera);
+        _screenDistance=scene._screenDistance;
+        _sceneName=new String(scene._sceneName);
+    }
+    public Scene(AmbientLight aLight, Color background, Camera camera, double screenDistance)
+    {
+        _background=new Color(background.getRGB());
+        _ambientLight=new AmbientLight(aLight);
+        _camera=new Camera(camera);
+        _screenDistance=screenDistance;
 
     }
     // ***************** Getters/Setters ********************** //
+    public AmbientLight getAmbientLight()
+    {
+        return _ambientLight;
+    }
+
+    public void setAmbientLight(AmbientLight ambientLight)
+    {
+        _ambientLight=new AmbientLight(ambientLight);
+    }
 
     public Color get_background() {
         return new Color(_background.getRGB());
@@ -81,6 +111,11 @@ public class Scene {
         _geometries.add(geometry);
     }
 
+    public Iterator<Geometry> getGeometriesIterator()
+    {
+        return _geometries.iterator();
+
+    }
 
 
 }
