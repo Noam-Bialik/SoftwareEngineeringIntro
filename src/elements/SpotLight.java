@@ -63,6 +63,6 @@ public class SpotLight extends PointLight {
     @Override
     public Color getIntensity(Point3D point) {
         double d = point.distance(position);
-        return multColor(multColor(_color,_direction.dotProduct(getL(point))),1/(_kc * _kl*d * _kq*d*d));
+        return multColor(multColor(_color,_direction.dotProduct(getL(point))),1/(_kc + _kl*d + _kq*d*d));
     }
 }
