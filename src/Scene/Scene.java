@@ -2,6 +2,7 @@ package Scene;
 
 import elements.AmbientLight;
 import elements.Camera;
+import elements.Light;
 import geometries.Geometry;
 import primitives.Point3D;
 
@@ -18,6 +19,7 @@ public class Scene {
     private Camera _camera;
     private double _screenDistance;
     private String _sceneName = "scene";
+    private ArrayList<Light> _lights = new ArrayList<Light>();
     // ***************** Constructors ********************** //
     public Scene()
     {
@@ -35,6 +37,7 @@ public class Scene {
         _camera=new Camera(scene._camera);
         _screenDistance=scene._screenDistance;
         _sceneName=new String(scene._sceneName);
+        _lights = new ArrayList<Light>(scene._lights);
     }
     public Scene(AmbientLight aLight, Color background, Camera camera, double screenDistance)
     {
@@ -42,6 +45,7 @@ public class Scene {
         _ambientLight=new AmbientLight(aLight);
         _camera=new Camera(camera);
         _screenDistance=screenDistance;
+        _lights = new ArrayList<Light>(_lights);
 
     }
     // ***************** Getters/Setters ********************** //
@@ -91,6 +95,14 @@ public class Scene {
         this._sceneName = _sceneName;
     }
 
+    public ArrayList<Light> get_lights() {
+        return new ArrayList<Light>(_lights);
+    }
+
+    public void set_lights(ArrayList<Light> _lights) {
+        this._lights = new ArrayList<Light>(_lights);
+    }
+
     // ***************** Administration  ******************** //
 
     @Override
@@ -117,5 +129,14 @@ public class Scene {
 
     }
 
+    public void addLight(Light light)
+    {
+        _lights.add(light);
+    }
 
+    public Iterator<Light> getLightsIterator()
+    {
+        return _lights.iterator();
+
+    }
 }

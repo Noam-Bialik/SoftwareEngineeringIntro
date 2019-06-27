@@ -9,7 +9,9 @@ public class Material {
     private double _Kr;
     private double _Kt;
     // ***************** Constructors ********************** //
+    public Material(){
 
+    }
     public Material(double _kd, double _ks, double _nShininess) {
         this._kd = _kd;
         this._ks = _ks;
@@ -20,6 +22,12 @@ public class Material {
         this(_kd, _ks, _nShininess);
         this._Kr = _Kr;
         this._Kt = _Kt;
+    }
+
+    public Material(Material material) {
+        this(material._kd, material._ks, material._nShininess);
+        this._Kr = material._Kr;
+        this._Kt = material._Kt;
     }
 
     // ***************** Getters/Setters ********************** //

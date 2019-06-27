@@ -57,21 +57,31 @@ public class Triangle extends Plane{
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Triangle)) return false;
-        Triangle triangle = (Triangle) o;
-        return Objects.equals(point1, triangle.point1) &&
-                Objects.equals(point2, triangle.point2) &&
-                Objects.equals(point3, triangle.point3);
-    }
-
-    @Override
     public String toString() {
         return "Triangle{" +
                 "point1=" + point1 +
                 ", point2=" + point2 +
                 ", point3=" + point3 +
+                ", point=" + point +
+                ", vector=" + vector +
+                ", emmision=" + emmision +
+                ", material=" + material +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Triangle)) return false;
+        if (!super.equals(o)) return false;
+        Triangle triangle = (Triangle) o;
+        return Objects.equals(getPoint1(), triangle.getPoint1()) &&
+                Objects.equals(getPoint2(), triangle.getPoint2()) &&
+                Objects.equals(getPoint3(), triangle.getPoint3());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), getPoint1(), getPoint2(), getPoint3());
     }
 }

@@ -1,9 +1,11 @@
 package renderer;
 
 import Scene.*;
+import elements.Light;
 import geometries.Geometry;
 import primitives.Point3D;
 import primitives.Ray;
+import primitives.Vector;
 import java.awt.*;
 import java.util.*;
 import java.util.List;
@@ -12,6 +14,7 @@ import java.util.Map.*;
 public class Renderer {
     Scene _scene;
     ImageWriter _imageWriter;
+    final int RECURSION_LEVEL =3;
 
     // ***************** Constructors ********************** //
 
@@ -97,12 +100,53 @@ public class Renderer {
         return minDistancePoint;
 
     }
-    private Color calcColor(Geometry geometry, Point3D point) {
+    private Color calcColor(Geometry geometry, Point3D point, Ray inRay, int level) {
+        if (level == RECURSION_LEVEL)
+            return new Color(0, 0, 0);
         Color ambientLight = _scene.getAmbientLight().getIntensity(point);
         Color emissionLight = geometry.getEmmision();
-        Color I0 = new Color (ambientLight.getRed()    + emissionLight.getRed(),
-                ambientLight.getGreen() + emissionLight.getGreen(),
-                ambientLight.getBlue()    + emissionLight.getBlue());
-        return I0;
+        Iterator<Light> lights = _scene.getLightsIterator();
+        Color diffuseLight = Color.WHITE, specularLight =Color.WHITE;
+        while (lights.hasNext())
+        {
+            if (!occluded(light, point, geometry))
+            {
+                diffuseLight += calcDiffusiveComp(…);
+                specularLight += calcSpecularComp(…);
+            }
+        }
+ 
+        reﬂectedRay = constructReﬂectedRay(geometry.getNormal(point), point, inRay); 
+        reﬂectedEntry = ﬁndClosesntIntersection(reﬂectedRay);
+          reﬂectedColor = calcColor(reﬂectedEntry.geometry, reﬂectedEntry.point, reﬂectedRay, level + 1);
+        kr = geometry.material.Kr;
+        reﬂectedLight = new Color (Kr * reﬂectedColor);
+        refractedRay = constructRefractedRay(geometry.getNormal(point), point, inRay);
+          refractedEntry = ﬁndClosesntIntersection(reﬂectedRay); 
+        refractedColor = calcColor(reﬂectedEntry.geometry, reﬂectedEntry.point, reﬂectedRay, level + 1);
+        kt = geometry.material.Kr;
+        refractedLight = new Color (Kt * refractedColor);
+        return new Color(ambientLight + emissionLight + diffuseLight + specularLight  + reﬂectedLight + refractedLight)
+    }
+
+    private boolean occluded(Light light, Point3D point, Geometry geometry)
+    {
+        Vector lightDirection = light.getL(point);
+        lightDirection.mult(-1);
+        Point3D geometryPoint = new Point3D(point);
+        Vector epsVector = new Vector(geometry.getNormal(point));
+        epsVector.mult(2);
+        geometryPoint.addVector(epsVector);
+        Ray lightRay = new Ray(lightDirection, geometryPoint);
+        Map<Geometry, ArrayList<Point3D>> intersectionPoints = getSceneRayIntersections(lightRay);
+        // Flat geometry cannot self intersect
+        if (geometry instanceof FlatGeometry)
+        {
+            intersectionPoints.remove(geometry);
+        }
+        for (Entry<Geometry, ArrayList<Point3D>> entry: intersectionPoints.entrySet())
+            if (entry.getKey().getMaterial().get_Kt() == 0)
+                return true;
+        return false;
     }
 }

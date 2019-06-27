@@ -39,14 +39,22 @@ public class Tube extends RadialGeometry {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Tube)) return false;
+        if (!super.equals(o)) return false;
         Tube tube = (Tube) o;
-        return Objects.equals(hinge, tube.hinge);
+        return Objects.equals(getHinge(), tube.getHinge());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), getHinge());
     }
 
     @Override
     public String toString() {
         return "Tube{" +
                 "hinge=" + hinge +
+                ", emmision=" + emmision +
+                ", material=" + material +
                 '}';
     }
 

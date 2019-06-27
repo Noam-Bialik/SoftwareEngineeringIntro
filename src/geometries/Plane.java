@@ -7,7 +7,7 @@ import primitives.Vector;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Plane extends Geometry {
+public class Plane extends Geometry implements FlatGeometry{
     Point3D point;
     Vector vector;
 
@@ -59,9 +59,15 @@ public class Plane extends Geometry {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Plane)) return false;
+        if (!super.equals(o)) return false;
         Plane plane = (Plane) o;
-        return Objects.equals(point, plane.point) &&
-                Objects.equals(vector, plane.vector);
+        return Objects.equals(getPoint(), plane.getPoint()) &&
+                Objects.equals(getVector(), plane.getVector());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), getPoint(), getVector());
     }
 
     @Override
@@ -69,6 +75,8 @@ public class Plane extends Geometry {
         return "Plane{" +
                 "point=" + point +
                 ", vector=" + vector +
+                ", emmision=" + emmision +
+                ", material=" + material +
                 '}';
     }
 }

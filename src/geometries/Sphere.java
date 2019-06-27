@@ -57,14 +57,22 @@ public class Sphere extends RadialGeometry {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Sphere)) return false;
+        if (!super.equals(o)) return false;
         Sphere sphere = (Sphere) o;
-        return Objects.equals(center, sphere.center);
+        return Objects.equals(getCenter(), sphere.getCenter());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), getCenter());
     }
 
     @Override
     public String toString() {
         return "Sphere{" +
                 "center=" + center +
+                ", emmision=" + emmision +
+                ", material=" + material +
                 '}';
     }
 }
