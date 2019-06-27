@@ -7,7 +7,7 @@ import primitives.Vector;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Plane implements Geometry {
+public class Plane extends Geometry {
     Point3D point;
     Vector vector;
 
@@ -40,7 +40,7 @@ public class Plane implements Geometry {
 
     @Override
     public Vector getNormal(Point3D point3D) {
-        return vector;
+        return new Vector(vector);
     }
 
     @Override
