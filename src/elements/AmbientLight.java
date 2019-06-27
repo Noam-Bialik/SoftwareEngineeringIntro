@@ -1,12 +1,12 @@
 package elements;
 
 import primitives.Point3D;
+import primitives.Vector;
 
 import java.awt.*;
 import java.util.Objects;
 
-public class AmbientLight {
-    Color _color;
+public class AmbientLight extends Light{
     double _ka;
     // ***************** Constructors ********************** //
 
@@ -53,6 +53,11 @@ public class AmbientLight {
     // ***************** Operations ******************** //
     public Color getIntensity(Point3D point3D)
     {
-    return new Color(1,2,2);
+        return multColor(_color,_ka);
+    }
+
+    @Override
+    public Vector getL(Point3D point) {
+        return null;
     }
 }
