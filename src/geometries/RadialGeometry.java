@@ -1,6 +1,6 @@
 package geometries;
 
-abstract class RadialGeometry implements Geometry {
+abstract class RadialGeometry extends Geometry {
     private double _radius;
 
     public RadialGeometry(double radius){
