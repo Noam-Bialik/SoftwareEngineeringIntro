@@ -99,7 +99,7 @@ public class Renderer {
     }
     private Color calcColor(Geometry geometry, Point3D point) {
         Color ambientLight = _scene.getAmbientLight().getIntensity(point);
-        Color emissionLight = geometry.getEmmission();
+        Color emissionLight = geometry.getEmmision();
         Color I0 = new Color (ambientLight.getRed()    + emissionLight.getRed(),
                 ambientLight.getGreen() + emissionLight.getGreen(),
                 ambientLight.getBlue()    + emissionLight.getBlue());

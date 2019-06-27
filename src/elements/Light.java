@@ -57,9 +57,14 @@ public abstract class Light {
 
     protected Color multColor(Color color, double num)
     {
-        int r=(int)(_color.getRed()*num);
-        int g=(int)(_color.getGreen()*num);
-        int b=(int)(_color.getBlue()*num);
-        return new Color(r,g,b);
+        int RGB[] = {(int)(_color.getRed()*num), (int)(_color.getGreen()*num), (int)(_color.getBlue()*num)};
+        for (int i = 0; i < 3; i++)
+        {
+            if (RGB[i] > 255)
+                RGB[i] = 255;
+            if (RGB[i] < 255)
+                RGB[i] = 0;
+        }
+        return new Color(RGB[0], RGB[1], RGB[2]);
     }
 }

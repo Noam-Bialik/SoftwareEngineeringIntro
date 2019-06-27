@@ -7,14 +7,14 @@ import java.awt.*;
 import java.util.Objects;
 
 public class PointLight extends Light{
-    Vector position;
+    Point3D position;
     double _kc, _kl, _kq;
 
     // ***************** Constructors ********************** //
 
-    public PointLight(Color _color, Vector position, double _kc, double _kl, double _kq) {
+    public PointLight(Color _color, Point3D position, double _kc, double _kl, double _kq) {
         super(_color);
-        this.position = new Vector(position);
+        this.position = new Point3D(position);
         this._kc = _kc;
         this._kl = _kl;
         this._kq = _kq;
@@ -22,7 +22,7 @@ public class PointLight extends Light{
 
     public PointLight(PointLight pointLight) {
         super(pointLight._color);
-        this.position = new Vector(pointLight.position);
+        this.position = new Point3D(pointLight.position);
         this._kc = pointLight._kc;
         this._kl = pointLight._kl;
         this._kq = pointLight._kq;
@@ -32,12 +32,12 @@ public class PointLight extends Light{
 
     // ***************** Getters/Setters ********************** //
 
-    public Vector getPosition() {
-        return new Vector(position);
+    public Point3D getPosition() {
+        return new Point3D(position);
     }
 
-    public void setPosition(Vector position) {
-        this.position = new Vector(position);
+    public void setPosition(Point3D position) {
+        this.position = new Point3D(position);
     }
 
     public double get_kc() {
@@ -94,12 +94,13 @@ public class PointLight extends Light{
 
     @Override
     public Color getIntensity(Point3D point) {
-        return null;
+        double d = point.distance(position);
+        return multColor(_color,1/(_kc * _kl*d * _kq*d*d));
     }
 
     @Override
     public Vector getL(Point3D point) {
-        return null;
+        return point.substract(position);
     }
 
 }

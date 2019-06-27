@@ -1,5 +1,6 @@
 package elements;
 
+import primitives.Point3D;
 import primitives.Vector;
 
 import java.awt.*;
@@ -11,7 +12,7 @@ public class SpotLight extends PointLight {
     Vector _direction;
     // ***************** Constructors ********************** //
 
-    public SpotLight(Color _color, Vector position, double _kc, double _kl, double _kq, Vector _direction) {
+    public SpotLight(Color _color, Point3D position, double _kc, double _kl, double _kq, Vector _direction) {
         super(_color, position, _kc, _kl, _kq);
         this._direction = _direction;
     }
@@ -58,4 +59,10 @@ public class SpotLight extends PointLight {
 
     // ***************** Operations ******************** //
 
+
+    @Override
+    public Color getIntensity(Point3D point) {
+        double d = point.distance(position);
+        return multColor(multColor(_color,_direction.dotProduct(getL(point))),1/(_kc * _kl*d * _kq*d*d));
+    }
 }

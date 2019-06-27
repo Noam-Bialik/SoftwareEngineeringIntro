@@ -54,11 +54,11 @@ public class DirectionalLight extends Light {
 
     @Override
     public Color getIntensity(Point3D point) {
-        return null;
+        return get_color();
     }
 
     @Override
     public Vector getL(Point3D point) {
-        return null;
+        return new Vector(_direction);
     }
 }
