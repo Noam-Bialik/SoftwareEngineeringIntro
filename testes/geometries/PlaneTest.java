@@ -12,6 +12,12 @@ class PlaneTest {
     Plane plane2 =new Plane(new Point3D(1,1,0),new Vector(0,0,1));
 
     @Test
+    void findIntersectionsTest()
+    {
+
+    }
+
+    @Test
     void constractorTest()
     {
         assertEquals(plane1,plane2);
