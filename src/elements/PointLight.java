@@ -95,7 +95,7 @@ public class PointLight extends Light{
     @Override
     public Color getIntensity(Point3D point) {
         double d = point.distance(position);
-        return multColor(_color,1/(_kc * _kl*d * _kq*d*d));
+        return multColor(_color,1/(_kc+ _kl*d + _kq*d*d));
     }
 
     @Override
